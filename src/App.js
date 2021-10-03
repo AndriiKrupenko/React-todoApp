@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import listSvg from './assets/img/list.svg';
 import List from './components/List';
 import AddListButton from './components/AddListButton';
+import Tasks from './components/Tasks';
 
 import DB from './assets/db.json';
 
@@ -33,7 +34,7 @@ function App() {
         <AddListButton onAdd={onAddList} colors={DB.colors}/>
       </div>
       <div className="todo__tasks">
-        <h2>Фронтенд</h2>
+        <Tasks />
       </div>
     </div>
   );
