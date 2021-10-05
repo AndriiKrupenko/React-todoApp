@@ -41,6 +41,9 @@ function App() {
               const newLists = lists.filter(item => item.id !== id);
               setLists(newLists);
             }}
+            onClickItem={item => {
+              console.log(item)
+            }}
             isRemovable
           />
         ) : (
