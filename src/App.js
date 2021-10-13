@@ -38,6 +38,71 @@ function App() {
     setLists(newList);
   };
 
+ const onEditTask = (listId, taskObj) => {
+    const newTaskText = window.prompt('Текст задачи', taskObj.text);
+
+    if (!newTaskText) {
+      return;
+    }
+
+    const newList = lists.map(list => {
+      if (list.id === listId) {
+        list.tasks = list.tasks.map(task => {
+          if (task.id === taskObj.id) {
+            task.text = newTaskText;
+          }
+          return task;
+        });
+      }
+      return list;
+    });
+    setLists(newList);
+    axios
+      .patch('http://localhost:3001/tasks/' + taskObj.id, {
+        text: newTaskText
+      })
+      .catch(() => {
+        alert('Не удалось обновить задачу');
+      });
+  };
+
+  const onRemoveTask = (listId, taskId) => {
+    if (window.confirm('Вы действительно хотите удалить задачу?')) {
+      const newList = lists.map(item => {
+        if (item.id === listId) {
+          item.tasks = item.tasks.filter(task => task.id !== taskId);
+        }
+        return item;
+      });
+      setLists(newList);
+      axios.delete('http://localhost:3001/tasks/' + taskId).catch(() => {
+        alert('Не удалось удалить задачу');
+      });
+    }
+  };
+
+  const onCompleteTask = (listId, taskId, completed) => {
+    const newList = lists.map(list => {
+      if (list.id === listId) {
+        list.tasks = list.tasks.map(task => {
+          if (task.id === taskId) {
+            task.completed = completed;
+          }
+          return task;
+        });
+      }
+      return list;
+    });
+    setLists(newList);
+    axios
+      .patch('http://localhost:3001/tasks/' + taskId, {
+        completed
+      })
+      .catch(() => {
+        alert('Не удалось обновить задачу');
+      });
+  };
+
   const onEditListTitle = (id, title) => {
     const newList = lists.map(item => {
       if (item.id === id) {
@@ -49,12 +114,12 @@ function App() {
   };
 
   useEffect(() => {
-    const listId = location.pathname.split('lists/')[1];
+    const listId = history.location.pathname.split('lists/')[1];
     if (lists) {
       const list = lists.find(list => list.id === Number(listId));
       setActiveItem(list);
     }
-  }, [lists, location.pathname]);
+  }, [lists, history.location.pathname]);
 
   return (
     <div className="todo">
@@ -65,7 +130,7 @@ function App() {
             }}
           items={[
           {
-            active: true,
+            active: history.location.pathname === '/',
             icon: (<img src={listSvg} alt="List icon" />),
             name: 'Все задачи',
           }
@@ -98,13 +163,22 @@ function App() {
                 list={list}
                 onAddTask={onAddTask}
                 onEditTitle={onEditListTitle}
+                onRemoveTask={onRemoveTask}
+                onEditTask={onEditTask}
+                onCompleteTask={onCompleteTask}
                 withoutEmpty
                 />
           ))}
         </Route>
         <Route path="/lists/:id">
           {lists && activeItem && (
-        <Tasks list={activeItem} onAddTask={onAddTask} onEditTitle={onEditListTitle} />
+            <Tasks
+              list={activeItem}
+              onAddTask={onAddTask}
+              onEditTitle={onEditListTitle}
+              onRemoveTask={onRemoveTask}
+              onEditTask={onEditTask}
+              onCompleteTask={onCompleteTask} />
           )}
         </Route>
       </div>

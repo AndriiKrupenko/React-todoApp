@@ -1,61 +1,62 @@
 {
   "lists": [
     {
-      "id": 1,
-      "name": "Продажи",
-      "colorId": 5
+      "name": "IT",
+      "colorId": 5,
+      "id": 7
     },
     {
-      "id": 2,
-      "name": "Фронтенд",
-      "colorId": 4
+      "name": "Домашние дела",
+      "colorId": 8,
+      "id": 9
     },
     {
-      "id": 3,
-      "name": "Фильмы и сериалы",
-      "colorId": 3
+      "name": "Английский",
+      "colorId": 6,
+      "id": 10
     },
     {
-      "id": 4,
-      "name": "Книги",
-      "colorId": 2
-    },
-    {
-      "id": 5,
-      "name": "Личное",
-      "colorId": 1
+      "name": "Другое",
+      "colorId": 3,
+      "id": 11
     }
   ],
   "tasks": [
     {
-      "id": 1,
-      "listId": 2,
-      "text": "Изучить JavaScript",
-      "completed": false
+      "listId": 7,
+      "text": "Учеба на курсах в NIX Solution",
+      "completed": false,
+      "id": 1
     },
     {
-      "id": 2,
-      "listId": 2,
-      "text": "Изучить паттерны проектирования",
-      "completed": false
+      "listId": 7,
+      "text": "Разработка приложения ToDo",
+      "completed": true,
+      "id": 2
     },
     {
-      "id": 3,
-      "listId": 2,
-      "text": "ReactJS Hooks (useState, useReducer, useEffect и т.д.)",
-      "completed": true
+      "listId": 9,
+      "text": "Попылесосить",
+      "completed": false,
+      "id": 3
     },
     {
-      "id": 4,
-      "listId": 2,
-      "text": "Redux (redux-observable, redux-saga)",
-      "completed": false
+      "listId": 9,
+      "text": "Уборка в ванной",
+      "completed": false,
+      "id": 4
     },
     {
-      "listId": 2,
-      "text": "222",
+      "listId": 10,
+      "text": "Прочитать 2 главу книги",
       "completed": false,
       "id": 5
+    },
+    {
+      "listId": 11,
+      "text": "Встреча с другом",
+      "completed": false,
+      "id": 6
     }
   ],
   "colors": [
